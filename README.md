@@ -1,4 +1,4 @@
-# Software for lambda/175 Resolution by Template-Free 2D Particle Fusion in Localization Microscopy.
+# Software for Template-Free 2D Particle Fusion in Localization Microscopy.
 
 This software implements a template-free particle fusion algorithm based on 
 an all-to-all registration, which provides robustness against individual 
