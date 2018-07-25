@@ -1,0 +1,13 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=mex 2015.12.11)  15 MAR 2018 11:45
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**gausstransform/mex_gausstransform_cpu.cpp -output MATLAB/all2all//mex_gausstr
+ansform_cpu.mexa64
+(./gausstransform/mex_gausstransform_cpu.cpp
+This is MeX  Version 1.05  18 XII 1993  (B. Jackowski & M. Ry\'cko)
+! You can't use `macro parameter character #' in vertical mode.
+l.1 #
+     include <stdio.h>
+? exit
+No pages of output.
