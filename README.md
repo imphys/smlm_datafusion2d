@@ -96,8 +96,8 @@ of the GPU code type `make clean` and use `make cpu` instead of `make` or
 
 ### Further questions
 
-For further questions you can contact the authors
-[Hamidreza Heydarian](https://hrheydarian.github.io/) (<H.Heydarian@tudelft.nl>) and
+For further questions you can contact the authors:
+[Hamidreza Heydarian](https://hrheydarian.github.io/) (<H.Heydarian@tudelft.nl>) and 
 [Ben van Werkhoven](https://github.com/benvanwerkhoven) (<b.vanwerkhoven@esciencecenter.nl>)
 [Bernd Rieger](http://homepage.tudelft.nl/z63s8/) (<b.rieger@tudelft.nl>)
 
