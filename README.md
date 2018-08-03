@@ -111,7 +111,7 @@ Lie-algebraic averaging:
     [2] Govindu, V. Lie-algebraic averaging for globally consistent motion estimation. In Proc. IEEE Conf. on Computer Vision and Pattern Recognition (2004).  
     [3] Chatterjee, A. Geometric calibration and shape refinement for 3D reconstruction PhD thesis. Indian Institute of Science (2015).
 l1-magic optimization toolbox:  
-    https://statweb.stanford.edu/~candes/l1magic/
+    https://statweb.stanford.edu/~candes/l1magic/  
 Natural-Order Filename Sort  
     https://nl.mathworks.com/matlabcentral/fileexchange/47434-natural-order-filename-sort
 
