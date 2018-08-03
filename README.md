@@ -101,7 +101,7 @@ For further questions you can contact the authors:
 [Ben van Werkhoven](https://github.com/benvanwerkhoven) (<b.vanwerkhoven@esciencecenter.nl>)  
 [Bernd Rieger](http://homepage.tudelft.nl/z63s8/) (<b.rieger@tudelft.nl>)
 
-Note that some files have been reused and adapted from the following sources:
+Note that some files have been reused and adapted from the following sources:  
 GMM registration:  
     https://github.com/bing-jian/gmmreg  
     	[1] Jian, B. & Vemuri, B. C. Robust point set registration using Gaussian mixture models. IEEE PAMI 33, 16331645 (2011).  
@@ -110,8 +110,10 @@ Lie-algebraic averaging:
     http://www.ee.iisc.ac.in/labs/cvl/research/rotaveraging/  
     [2] Govindu, V. Lie-algebraic averaging for globally consistent motion estimation. In Proc. IEEE Conf. on Computer Vision and Pattern Recognition (2004).  
     [3] Chatterjee, A. Geometric calibration and shape refinement for 3D reconstruction PhD thesis. Indian Institute of Science (2015).
+    
 l1-magic optimization toolbox:  
     https://statweb.stanford.edu/~candes/l1magic/  
+    
 Natural-Order Filename Sort  
     https://nl.mathworks.com/matlabcentral/fileexchange/47434-natural-order-filename-sort
 
