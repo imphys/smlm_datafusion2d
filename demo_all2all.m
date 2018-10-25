@@ -107,6 +107,9 @@ end
 %% STEP 1
 
 % perform all2all registration and save results on disk
+scale = 0.01;   % For TUD logo, a value of 0.01 (in camera pixel unit) 
+                % works well. For NPC data, 0.1 is giving better result.
+                % Look at Online Methods for the description
 all2all(subParticles, 'output/all2all_matrix', scale);
 
 %% STEP 1,2
