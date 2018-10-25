@@ -9,6 +9,8 @@
 %       uncertainties in the sigma field.
 %   outdir
 %       Output directory where rows of all2all matrix are stored
+%   scale
+%       scale parameter for gmm registration
 %
 % OUTPUT
 %   The function doesn't return any output but the results are stored in
@@ -26,7 +28,7 @@
 %
 % Hamidreza Heydarian, 2017
 
-function all2all(Particles, outdir)
+function all2all(Particles, outdir, scale)
 
     % setup pyramid, determine the pyramid height or the number of layers
     N = numel(Particles);
@@ -43,7 +45,7 @@ function all2all(Particles, outdir)
             
             % perform pairwise registration for each element of all2all
             % matrix
-            [param, ~, ~, ~, val] = pairFitting(M, S);
+            [param, ~, ~, ~, val] = pairFitting(M, S, scale);
 
             % registration parameters, cost function value and idicators
             % are stored in the result structure
