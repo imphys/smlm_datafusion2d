@@ -149,3 +149,22 @@ the top-level or test directory:
 ```
 nosetests -v
 ```
+## Reference
+
+If you find this code useful for your research, please cite
+
+```
+@article {PMID:30224671,
+	Title = {Template-free 2D particle fusion in localization microscopy},
+	Author = {Heydarian, Hamidreza and Schueder, Florian and Strauss, Maximilian T and van Werkhoven, Ben and Fazel, Mohamadreza and Lidke, Keith A and Jungmann, Ralf and Stallinga, Sjoerd and Rieger, Bernd},
+	DOI = {10.1038/s41592-018-0136-6},
+	Number = {10},
+	Volume = {15},
+	Month = {October},
+	Year = {2018},
+	Journal = {Nature methods},
+	ISSN = {1548-7091},
+	Pages = {781—784},
+	URL = {https://doi.org/10.1038/s41592-018-0136-6},
+}
+```
