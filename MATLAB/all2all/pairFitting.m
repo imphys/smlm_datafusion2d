@@ -8,6 +8,8 @@
 %       The first particle.
 %   S
 %       The second particle.nano 
+%   scale
+%       the scale parameter for gmm registration
 %
 % OUTPUT
 %   parameter
@@ -39,14 +41,8 @@
 %
 % Hamidreza Heydarian, 2017
 
-function [parameter, registered_model, history, config, max_value] = pairFitting(M, S) 
-    
-    scale = [0.01];                 % the set of scales in a multiscale 
-                                    % approach these are roughly equal to
-                                    % one and 5 times the average 
-                                    % uncertainties (1nm) and (to be 
-                                    % determnined automatically.)
-                                    
+function [parameter, registered_model, history, config, max_value] = pairFitting(M, S, scale) 
+                                       
     angle = [-pi -pi/2 0 pi/2 pi 3*pi/2 2*pi];     % inital angles
 
     % an automatic scale selection 
