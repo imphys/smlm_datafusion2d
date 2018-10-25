@@ -40,7 +40,7 @@
 %
 % Hamidreza Heydarian, 2017
 
-function [parameter, registered_model, history, config, max_value] = pairFitting(M, S) 
+function [parameter, registered_model, history, config, max_value] = pairFitting_parallel(M, S) 
     
     scale = [0.01];                 % the set of scales in a multiscale 
                                     % approach these are roughly equal to
