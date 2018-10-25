@@ -107,7 +107,7 @@ end
 %% STEP 1
 
 % perform all2all registration and save results on disk
-all2all(subParticles, 'output/all2all_matrix');
+all2all(subParticles, 'output/all2all_matrix', scale);
 
 %% STEP 1,2
 
