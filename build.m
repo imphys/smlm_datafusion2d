@@ -12,21 +12,22 @@ clear all; %#ok<CLALL>
 include_g = ['-I' ];
 
 % specify source files
-src_g_cpu = fullfile(pwd, 'gausstransform/mex_gausstransform_cpu.cpp');
+src_g_cpu = fullfile(pwd, 'gausstransform/');
 src_g_gpu = fullfile(pwd, 'gausstransform/mex_gausstransform.cpp');
-src_e_cpu = fullfile(pwd, 'expdist/mex_expdist_cpu.cpp');
+src_e_cpu = fullfile(pwd, 'expdist/');
 src_e_gpu = fullfile(pwd, 'expdist/mex_expdist.cpp');
 
 current_folder = pwd
 
 % build
-mex('-v', include_g, src_g_cpu);
-mex('-v', include_e, src_e_cpu);
+mex gausstransform/mex_gausstransform_cpu.cpp
+mex expdist/mex_expdist_cpu.cpp;
 
-prompt = 'Also build mex files using GPU code (yes/no)? ';
-gpu = input(prompt)
-
-if gpu == 'yes'
-    mex('-v', include_g, src_g_gpu, '-L', current_folder, '-l', 'gausstransform');
-    mex('-v', include_e, src_e_gpu, '-L', current_folder, '-l', 'expdist');
-end
+% TO BE CORRECTED FOR USE IN WINDOWS ENVIRONMENT
+% prompt = 'Also build mex files using GPU code (yes/no)? ';
+% gpu = input(prompt)
+% 
+% if gpu == 'yes'
+%     mex('-v', include_g, src_g_gpu, '-L', current_folder, '-l', 'gausstransform');
+%     mex('-v', include_e, src_e_gpu, '-L', current_folder, '-l', 'expdist');
+% end
