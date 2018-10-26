@@ -71,11 +71,11 @@ addpath(path_matlab)
 %dataset = 'experiment/tud_dol50_raw';
 
 % ---- simulated data sets ---
- dataset = 'simulation/tud_dol100.mat';             
+ dataset = 'Particles_N_150Test';             
 % dataset = 'simulation/tud_dol50.mat';             
 % dataset = 'simulation/tud_dol30.mat';  
 
-K = 50;     % set to 1e3 for all particless        % choose K particles
+K = 500;     % set to 1e3 for all particless        % choose K particles
 
 % load the dataset
 load(['data/' dataset])
@@ -92,7 +92,7 @@ subParticles = cell(1,K);
 if flag
     % experimental dataset
     for j=1:K
-        subParticles{j}.points = double(particles{1,j}.points);
+        subParticles{j}.points = double(particles{1,j}.points - [1.5 1.5]);
         subParticles{j}.sigma  = double((particles{1,j}.sigma).^2);
 
     end
@@ -107,7 +107,7 @@ end
 %% STEP 1
 
 % perform all2all registration and save results on disk
-scale = 0.01;   % For TUD logo, a value of 0.01 (in camera pixel unit) 
+scale = 0.1;   % For TUD logo, a value of 0.01 (in camera pixel unit) 
                 % works well. For NPC data, 0.1 is giving better result.
                 % Look at Online Methods for the description
 all2all(subParticles, 'output/all2all_matrix', scale);
@@ -121,11 +121,11 @@ all2all(subParticles, 'output/all2all_matrix', scale);
 
 % bootstrapping (step 3)
 iter = 4;   % number of iterations
-% [superParticle, M2] = one2all(initAlignedParticles, iter, M1, 'output/');  
+[superParticle, M2] = one2all(initAlignedParticles, iter, M1, 'output/');  
 
 % for NPC data use the following function which takes into account the
 % prior knowledge about 8-fold symmetry. Look at Online Methods for details
-[superParticle, M2] = one2all_symmetric(initAlignedParticles, iter, M1, 'output/');
+% [superParticle, M2] = one2all_symmetric(initAlignedParticles, iter, M1, 'output/');
 
 %% VISUALIZE RRESULTS
 
