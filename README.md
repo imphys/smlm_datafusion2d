@@ -9,26 +9,28 @@ works on localization data not pixelated images.
 The main code is written in MATLAB and some of the compute-intensive kernels 
 have been written in CUDA and C++.
 
-## requirements
-This code is built for a Linux enviroment. It might or might not work on a mac. 
-For Windows a Linux shell enviroment could work.
-For the CPU only code, no special libaries are needed for the compilation of 
-the C code other than a C compiler.
-For the GPU code, a CUDA compiler and libraries must be present and the CUB library
-on the CPATH enviroment variable (see below).
-
-
 ## Installation
 
-A Makefile is provided that can be used to compile the code and produce the 
-required mex files.
+Use the following commands to build the necessary libraries for this software:
 
-Simply type ``make`` in the top-level directory and mex files will be 
-produced in the `MATLAB/all2all/` directory.
+```bash
 
-If you do not have a CUDA-capable GPU use ``make cpu`` instead, to only
-compile the CPU code.
+cmake .
+make
+make install
+````
 
+
+
+### Installation instructions for CPU-only Version
+
+If you do not have a CUDA capable GPU you could install the software without GPU acceleration. Do note that the code will be orders of magnitude slower. Use the following commands to install with:
+```bash
+
+cmake -DUSE_GPU=OFF .
+make
+make install
+```
 
 ## Example Usage
 The DIPImage toolbox for MATLAB is required, please see http://www.diplib.org 
@@ -37,13 +39,15 @@ for installation instructions.
 An example of how to use the code on experimental and simulated data is shown
 in the MATLAB script `demo_all2all.m`. 
 
+## Dependencies
 
-## Installation instructions for GPU Version
+### CMake
 
-The mex files that call GPU functions will only be compiled by the Makefile 
-if you have *nvcc* (the Nvidia CUDA compiler) installed. Just type `make` in 
-the top-level directory after you've made sure that you've installed CUDA 
-and the CUB library, see the instructions below.
+CMake is used as the build system for compiling the code, you can download and install it from https://cmake.org/download/.
+
+### MATLAB
+
+The main code is written in Matlab, it's not possible to use the software without it.
 
 ### CUDA
 
@@ -61,22 +65,19 @@ environment variable.
 
 ## Troubleshooting
 
-### Matlab mex headers not found
+### Operation System
 
-The Makefile tries to find the directories in which MATLAB was installed on 
-your system. If this fails, you can manually insert the path to your MATLAB 
-installation (ending with `/extern/include`) inside the Makefile. 
+This code has been developed for a Linux enviroment.
+We have yet to test it on OSX and Windows.
+If you run into issues installing the software on Windows or Mac please create an issue on github or contact the authors.
 
-### CUDA headers not found
+### CUB library or <cub/cub.cuh> not found
 
-The Makefile also tries to automatically find the directories with headers 
-and libraries needed to compile the CUDA codes. If this fails, these can as well be 
-inserted at the top of the Makefile.
+The GPU code has only one external dependency, which is the CUB library. 
+cmake will try to find and locate the CUB library on your system. If that fails it will
+attempt to download the library directly. If that fails, you could install the library manually.
 
-### <cub/cub.cuh> not found
-
-The GPU code has only one external dependency, which is the CUB library. You 
-can download it from: https://nvlabs.github.io/cub/index.html. The easiest 
+You can download CUB from: https://nvlabs.github.io/cub/index.html. The easiest 
 way to install CUB is to add the top-level directory of where you've 
 unpacked the CUB source codes to your ``$CPATH`` environment variable. For 
 example, if you've unzipped the CUB sources into a directory called 
@@ -86,17 +87,16 @@ nvcc compiler is able to find the CUB headers.
 
 ### Program tries to run GPU code when no GPU is present
 
-Note that the mex files for the GPU code will be produced by `make` if your 
-machine has `nvcc`. Once the mex files for the GPU code have been produced, 
+Note that the mex files for the GPU code will be installed into the MATLAB/all2all directory.  
+Once the mex files for the GPU code have been produced, 
 the MATLAB code will prefer to use the GPU functions instead of the CPU 
 functions. If you have no GPU available but did compile the mex files for 
 the GPU code, you will get errors and MATLAB will exit. To disable the use 
-of the GPU code type `make clean` and use `make cpu` instead of `make` or 
-`make all`.
+of the GPU code remove the mex files from the MATLAB/all2all directory and reinstall using ``cmake -DUSE_GPU=OFF .``.
 
 ### Further questions
 
-For further questions you can contact the authors:  
+For further questions feel free to create an issue on GitHub. You can also contact the authors:  
 [Hamidreza Heydarian](https://hrheydarian.github.io/) (<H.Heydarian@tudelft.nl>) and  
 [Ben van Werkhoven](https://github.com/benvanwerkhoven) (<b.vanwerkhoven@esciencecenter.nl>)  
 [Bernd Rieger](http://homepage.tudelft.nl/z63s8/) (<b.rieger@tudelft.nl>)
