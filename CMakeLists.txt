@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.12)
-project (smlm LANGUAGES CXX CUDA)
+project (smlm LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
@@ -15,15 +15,17 @@ matlab_add_mex(NAME mex_gausstransform_cpu SRC gausstransform/mex_gausstransform
 matlab_add_mex(NAME mex_expdist_cpu SRC expdist/mex_expdist_cpu.cpp)
 
 
-
-
-
+# -------------
+# Everything below this line is GPU related, using GPU is enabled by default
+# To disable use cmake -DUSE_GPU=OFF .
+# -------------
 
 
 option (USE_GPU
         "Use CUDA-enabled GPU Functions?" ON)
 if (USE_GPU)
 
+enable_language(CUDA)
 
 # -------------
 # CUDA
