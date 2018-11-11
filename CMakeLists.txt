@@ -3,6 +3,7 @@ project (smlm LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_LIST_DIR})
 find_package(Matlab REQUIRED)
 
 
@@ -14,10 +15,14 @@ matlab_add_mex(NAME mex_gausstransform_cpu SRC gausstransform/mex_gausstransform
 
 matlab_add_mex(NAME mex_expdist_cpu SRC expdist/mex_expdist_cpu.cpp)
 
+install(TARGETS mex_gausstransform_cpu mex_expdist_cpu
+        DESTINATION MATLAB/all2all)
+
+
 
 # -------------
 # Everything below this line is GPU related, using GPU is enabled by default
-# To disable use cmake -DUSE_GPU=OFF .
+# To disable compilation of GPU code use cmake -DUSE_GPU=OFF .
 # -------------
 
 
@@ -62,6 +67,8 @@ matlab_add_mex(NAME mex_gausstransform SRC gausstransform/mex_gausstransform.cpp
 
 matlab_add_mex(NAME mex_expdist SRC expdist/mex_expdist.cpp LINK_TO expdist)
 
+install(TARGETS mex_gausstransform mex_expdist
+        DESTINATION MATLAB/all2all)
 
 
 
