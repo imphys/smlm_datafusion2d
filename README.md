@@ -20,11 +20,11 @@ make
 make install
 ````
 
-
+CMake locates the code's dependencies and generates a Makefile. Make compiles the mex files and necessary shared libraries. Make install copies the mex files to the right directory for use in Matlab, it does not require priviledges to run.
 
 ### Installation instructions for CPU-only Version
 
-If you do not have a CUDA capable GPU you could install the software without GPU acceleration. Do note that the code will be orders of magnitude slower. Use the following commands to install with:
+If you do not have a CUDA capable GPU you could install the software without GPU acceleration. Do note that the code will be orders of magnitude slower. Use the following commands to install the CPU-only version:
 ```bash
 
 cmake -DUSE_GPU=OFF .
@@ -33,8 +33,6 @@ make install
 ```
 
 ## Example Usage
-The DIPImage toolbox for MATLAB is required, please see http://www.diplib.org 
-for installation instructions.
 
 An example of how to use the code on experimental and simulated data is shown
 in the MATLAB script `demo_all2all.m`. 
@@ -48,6 +46,7 @@ CMake is used as the build system for compiling the code, you can download and i
 ### MATLAB
 
 The main code is written in Matlab, it's not possible to use the software without it.
+The DIPImage toolbox for MATLAB is required, please see http://www.diplib.org for installation instructions.
 
 ### CUDA
 
@@ -68,8 +67,8 @@ environment variable.
 ### Operation System
 
 This code has been developed for a Linux enviroment.
-We have yet to test it on OSX and Windows.
-If you run into issues installing the software on Windows or Mac please create an issue on github or contact the authors.
+We have yet to test it on OSX and Windows, but the CMake build system should support compilation on these platforms.
+If you run into issues using the software on Windows or Mac please create an issue on GitHub or contact the authors.
 
 ### CUB library or <cub/cub.cuh> not found
 
