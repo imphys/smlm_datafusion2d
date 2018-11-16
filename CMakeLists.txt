@@ -1,8 +1,36 @@
 cmake_minimum_required (VERSION 3.12)
-project (smlm LANGUAGES CXX CUDA)
+project (smlm LANGUAGES CXX)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_LIST_DIR})
+find_package(Matlab REQUIRED)
+
+
+# -------------
+# Mex files for CPU code
+# -------------
+
+matlab_add_mex(NAME mex_gausstransform_cpu SRC gausstransform/mex_gausstransform_cpu.cpp)
+
+matlab_add_mex(NAME mex_expdist_cpu SRC expdist/mex_expdist_cpu.cpp)
+
+install(TARGETS mex_gausstransform_cpu mex_expdist_cpu
+        DESTINATION MATLAB/all2all)
+
+
+
+# -------------
+# Everything below this line is GPU related, using GPU is enabled by default
+# To disable compilation of GPU code use cmake -DUSE_GPU=OFF .
+# -------------
+
+
+option (USE_GPU
+        "Use CUDA-enabled GPU Functions?" ON)
+if (USE_GPU)
+
+enable_language(CUDA)
 
 # -------------
 # CUDA
@@ -23,9 +51,27 @@ message(STATUS "CUDA compiler args cmake cuda flags ${CMAKE_CUDA_FLAGS}")
 find_package(CUB REQUIRED)
 include_directories(${CUB_INCLUDE_DIR})
 
-
-
 add_library(gausstransform SHARED gausstransform/gausstransform.cu)
 
 add_library(expdist SHARED expdist/expdist.cu)
+
+
+# Build GPU-enabled MEX functions
+
+
+
+include_directories(${CUDA_INCLUDE_DIRS})
+link_directories(${CUDA_LIBRARIES})
+
+matlab_add_mex(NAME mex_gausstransform SRC gausstransform/mex_gausstransform.cpp LINK_TO gausstransform)
+
+matlab_add_mex(NAME mex_expdist SRC expdist/mex_expdist.cpp LINK_TO expdist)
+
+install(TARGETS mex_gausstransform mex_expdist
+        DESTINATION MATLAB/all2all)
+
+
+
+
+endif (USE_GPU)
 
