@@ -41,7 +41,26 @@ in the MATLAB script `demo_all2all.m`.
 
 ### CMake
 
-CMake is used as the build system for compiling the code, you can download and install it from https://cmake.org/download/.
+CMake is used as the build system for compiling the code. Here is a quick way to install the latest version of CMake locally without the need for root access:  
+1. Run the following from your terminal and also add it to your ~/.bashrc file for future usage. 
+```bash
+export PATH=$HOME/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/lib/:$LD_LIBRARY_PATH
+```
+2. Head over to the [CMake downloads page](https://cmake.org/download/) and get the latest “Unix/Linux Source” \*.tar.gz file.  
+3. Run the following command sequentially (this can take a few minutes !):  
+```bash
+
+tar -xf cmake*.tar.gz
+cd cmake*
+./configure --prefix=$HOME
+make
+make install
+```  
+4. You should now have the new installation of cmake ready. Check the version by:  
+```bash
+cmake --version
+```
 
 ### MATLAB
 
