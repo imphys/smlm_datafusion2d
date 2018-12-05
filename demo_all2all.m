@@ -71,7 +71,7 @@ addpath(path_matlab)
 %dataset = 'experiment/tud_dol50_raw';
 
 % ---- simulated data sets ---
- dataset = 'Particles_N_150Test';             
+dataset = 'simulation/tud_dol100.mat';             
 % dataset = 'simulation/tud_dol50.mat';             
 % dataset = 'simulation/tud_dol30.mat';  
 
