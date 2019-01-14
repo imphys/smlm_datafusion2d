@@ -30,7 +30,7 @@ function S = delParticle(Particles, fusedParticles, idx)
     S = fusedParticles;
     particlesSize = 0;
     
-    for i=1:idx
+    for i=1:idx-1
             
         particlesSize = particlesSize + numel(Particles{1,i}.points);
         
