@@ -32,13 +32,13 @@ function S = delParticle(Particles, fusedParticles, idx)
     
     for i=1:idx-1
             
-        particlesSize = particlesSize + numel(Particles{1,i}.points);
+        particlesSize = particlesSize + size(Particles{1,i}.points, 1);
         
     end
     
-   curParticleSize = numel(Particles{1,idx}.points);
+   curParticleSize = size(Particles{1,idx}.points, 1);
    
-   S.points(particlesSize+1:curParticleSize,:) = [];
-   S.sigma(particlesSize+1:curParticleSize) = [];
+   S.points(particlesSize+1:(particlesSize+curParticleSize),:) = [];
+   S.sigma(particlesSize+1:particlesSize+curParticleSize) = [];
    
 end
