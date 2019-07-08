@@ -4,7 +4,7 @@
 
 #include <cuda_runtime.h>
 
-class GPUGaussTransform {
+class __declspec(dllexport) GPUGaussTransform {
     public:
         GPUGaussTransform(int max_n);
         ~GPUGaussTransform();

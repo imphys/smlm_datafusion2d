@@ -30,7 +30,7 @@ option (USE_GPU
         "Use CUDA-enabled GPU Functions?" ON)
 if (USE_GPU)
 
-enable_language(CUDA)
+#enable_language(CUDA)
 
 # -------------
 # CUDA
@@ -51,9 +51,11 @@ message(STATUS "CUDA compiler args cmake cuda flags ${CMAKE_CUDA_FLAGS}")
 find_package(CUB REQUIRED)
 include_directories(${CUB_INCLUDE_DIR})
 
-add_library(gausstransform SHARED gausstransform/gausstransform.cu)
+message(STATUS "Found CUB ${CUB_INCLUDE_DIR}")
 
-add_library(expdist SHARED expdist/expdist.cu)
+cuda_add_library(gausstransform SHARED gausstransform/gausstransform.cu)
+
+cuda_add_library(expdist SHARED expdist/expdist.cu)
 
 
 # Build GPU-enabled MEX functions
