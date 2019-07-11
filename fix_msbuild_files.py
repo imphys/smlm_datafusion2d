@@ -4,7 +4,8 @@ import re
 
 def replace_with_mx(x):
     print(x.group(0))
-    libmx_path = x.group(1).replace("libmex.lib", "libmx.lib")
+    libmex_path = x.group(1).split(';')[-1]
+    libmx_path = libmex_path.replace("libmex.lib", "libmx.lib")
     replace_text = x.group(0) + ";" + libmx_path
     print(replace_text)
     return replace_text
