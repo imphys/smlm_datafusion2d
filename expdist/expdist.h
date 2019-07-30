@@ -3,7 +3,13 @@
 #include <stdint.h>
 #include <cuda_runtime.h>
 
-class __declspec(dllexport) GPUExpDist {
+#ifdef WIN32
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT 
+#endif
+
+class DLL_EXPORT GPUExpDist {
     public:
         GPUExpDist(int max_n);
         ~GPUExpDist();

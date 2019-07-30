@@ -1,10 +1,15 @@
 #pragma once
 
 #include <stdint.h>
-
 #include <cuda_runtime.h>
 
-class __declspec(dllexport) GPUGaussTransform {
+#ifdef WIN32
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT 
+#endif
+
+class DLL_EXPORT GPUGaussTransform {
     public:
         GPUGaussTransform(int max_n);
         ~GPUGaussTransform();
