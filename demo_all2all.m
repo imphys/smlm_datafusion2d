@@ -92,7 +92,7 @@ subParticles = cell(1,K);
 if flag
     % experimental dataset
     for j=1:K
-        subParticles{j}.points = double(particles{1,j}.points - [1.5 1.5]);
+        subParticles{j}.points = double(particles{1,j}.points);
         subParticles{j}.sigma  = double((particles{1,j}.sigma).^2);
 
     end
