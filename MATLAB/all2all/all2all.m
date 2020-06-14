@@ -45,7 +45,7 @@ function all2all(Particles, outdir, scale)
             
             % perform pairwise registration for each element of all2all
             % matrix
-            [param, ~, ~, ~, val] = pairFitting(M, S, scale);
+            [param, ~, ~, ~, val] = pairFitting(M, S, scale,6);
 
             % registration parameters, cost function value and idicators
             % are stored in the result structure

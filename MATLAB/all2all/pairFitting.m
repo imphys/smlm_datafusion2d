@@ -41,10 +41,11 @@
 %
 % Hamidreza Heydarian, 2017
 
-function [parameter, registered_model, history, config, max_value] = pairFitting(M, S, scale) 
-                                       
-    angle = [-pi -pi/2 0 pi/2 pi 3*pi/2 2*pi];     % inital angles
-
+function [parameter, registered_model, history, config, max_value] = pairFitting(M, S, scale,nAngles) 
+                      
+    %angle = [-pi -pi/2 0 pi/2 pi 3*pi/2 2*pi];     % inital angles
+    angle = linspace(-pi,(pi-2*pi/nAngles),nAngles); 
+                     
     % an automatic scale selection 
     % [n,d] = size(M.points);
     % scale = power(det(M.points'*M.points/n), 1/(2^d))/2;    
@@ -73,14 +74,13 @@ function [parameter, registered_model, history, config, max_value] = pairFitting
         f_config.scale = init_scale(iter);
 
         % perform registration
-        [param{iter}, transformed_model{1, iter}.points, history, config, fval(iter)] = gmmreg_L2(f_config);
+        [param{iter}, transformed_model{1, iter}.points, history{iter}, config{iter}, fval(iter)] = gmmreg_L2(f_config);
         transformed_model{1, iter}.sigma = [M_resampled.sigma; S_resampled.sigma];
 
         % compute the Bhattacharyya distance
         bhattacharyya_distance(iter) = expdist(S_resampled, M_resampled, param{iter}(1,3), param{iter}(1,1), param{iter}(1,2));
-        
     end
-			
+
     % maximize over scales and inital angles
     [max_value, IDX] = max(bhattacharyya_distance);
     parameter = param{1,IDX};
@@ -88,5 +88,5 @@ function [parameter, registered_model, history, config, max_value] = pairFitting
     M_transformed.sigma = M.sigma;
     registered_model.sigma = [M_transformed.sigma; S.sigma]; 
     registered_model.points = [M_transformed.points; S.points]; 
-	        
+
 end
