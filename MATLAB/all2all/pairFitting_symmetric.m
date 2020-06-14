@@ -46,7 +46,8 @@
 
 function [parameter, registered_model, history, config, max_value] = pairFitting_symmetric(M, S, scale) 
                                     
-    angle = -pi:pi/4:pi-pi/4;   % multiples of 2*pi/8 for NPC particle
+    Nfold = 8; 
+    angle = linspace(-pi,pi-2*pi/Nfold,Nfold);  %initial angles
     
 	% generate all permutation of initial grid and scale
 	[init_scale, init_angle] = ndgrid(scale, angle);
@@ -61,8 +62,14 @@ function [parameter, registered_model, history, config, max_value] = pairFitting
     
     % resample particles to save time
     M_resampled = resampleCloud2D(M);
-    S_resampled = resampleCloud2D(S);   
+    %S_resampled = resampleCloud2D(S); 
     
+    %during Bootstrapping: resample S randomly, otherwise bright spots are
+    %enhanced
+    iS = randsample(size(S.points,1),min([5000,size(S.points,1)])); 
+    S_resampled.points = S.points(iS,:);
+    S_resampled.sigma = S.sigma(iS); 
+
 	% loop over scales and inital angles
     parfor iter = 1:N_init
         

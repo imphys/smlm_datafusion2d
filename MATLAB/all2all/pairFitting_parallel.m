@@ -40,15 +40,10 @@
 %
 % Hamidreza Heydarian, 2017
 
-function [parameter, registered_model, history, config, max_value] = pairFitting_parallel(M, S) 
-    
-    scale = [0.01];                 % the set of scales in a multiscale 
-                                    % approach these are roughly equal to
-                                    % one and 5 times the average 
-                                    % uncertainties (1nm) and (to be 
-                                    % determnined automatically.)
+function [parameter, registered_model, history, config, max_value] = pairFitting_parallel(M, S, scale) 
                                     
-    angle = [-pi -pi/2 0 pi/2 pi 3*pi/2 2*pi];     % inital angles
+    %angle = [-pi -pi/2 0 pi/2 pi 3*pi/2 2*pi];     % inital angles
+    angle = linspace(-pi,2*pi/3,6); 
 
     % an automatic scale selection 
     % [n,d] = size(M.points);
@@ -67,7 +62,14 @@ function [parameter, registered_model, history, config, max_value] = pairFitting
     
     % resample particles to save time
     M_resampled = resampleCloud2D(M);
-    S_resampled = resampleCloud2D(S);   
+%     S_resampled = resampleCloud2D(S);   
+    
+    %During bootstrapping: resample S randomly, otherwise bright spots get
+    %enhances 
+    iS = randsample(size(S.points,1),min([5000,size(S.points,1)])); 
+    S_resampled.points = S.points(iS,:);
+    S_resampled.sigma = S.sigma(iS); 
+    
     
 	% loop over scales and inital angles
     parfor iter = 1:N_init
