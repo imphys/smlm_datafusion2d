@@ -88,13 +88,13 @@ __device__ __forceinline__ void ExpDist_tiled(const T *A, const T *B,
                         int jd = (j+tj*block_size_y) + d * n;
                         dist_ij += (A[id]-B[jd])*(A[id]-B[jd]);
                     }
-                    cross_term += exp(-dist_ij/(scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]));
+                    cross_term += exp(-dist_ij/( 2*(scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]) )) / (scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]);
                 #elif use_shared_mem == 1
                     #pragma unroll
                     for (int d=0; d<dim; d++) {
                         dist_ij += (sh_A[d][tx+ti*block_size_x]-sh_B[d][ty+tj*block_size_y])*(sh_A[d][tx+ti*block_size_x]-sh_B[d][ty+tj*block_size_y]);
                     }
-                    cross_term += exp(-dist_ij/(sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]));
+                    cross_term += exp(-dist_ij/(2*(sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]))) / (sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]);
                 #endif
 
             }
@@ -143,7 +143,7 @@ __device__ __forceinline__ T compute_expdist_block_shared(int tx, int ty, int i,
                 for (int d=0; d<dim; d++) {
                      dist_ij += (sh_A[d][tx+ti*block_size_x]-sh_B[d][ty+tj*block_size_y])*(sh_A[d][tx+ti*block_size_x]-sh_B[d][ty+tj*block_size_y]);
                 }
-                cross_term += exp(-dist_ij/(sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]));
+                cross_term += exp(-dist_ij/(2*(sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]))) / (sh_scale_A[tx+ti*block_size_x] + sh_scale_B[ty+tj*block_size_y]);
 
             }
         }
@@ -174,7 +174,7 @@ __device__ __forceinline__ T compute_expdist_block(int i, int j, const T *A, con
                     int jd = (j+tj*block_size_y) + d * n;
                     dist_ij += (A[id]-B[jd])*(A[id]-B[jd]);
                 }
-                cross_term += exp(-dist_ij/(scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]));
+                cross_term += exp(-dist_ij/(2*(scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]))) / (scale_A[i+ti*block_size_x] + scale_B[j+tj*block_size_y]);
 
             }
         }

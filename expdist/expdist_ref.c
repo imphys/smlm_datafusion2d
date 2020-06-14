@@ -58,7 +58,7 @@ double expdist(const double* A, const double* B,  int m, int n, int dim, const d
                 jd = j + d * n;
                 dist_ij = dist_ij + SQR( A[id] - B[jd]);
             }
-            cross_term += exp(-dist_ij/(scale_A[i] + scale_B[j]));
+            cross_term += exp(-dist_ij/(2*(scale_A[i] + scale_B[j]))) / (scale_A[i] + scale_B[j]);
         }
     }
 
