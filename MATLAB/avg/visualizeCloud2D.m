@@ -50,8 +50,8 @@ function [dip, Z] = visualizeCloud2D(X, n, diameter, angle, caption)
 
     % extract the ROI
     ROIradius = 0.5*diameter;
-    X = X(find(X(:,1) < ROIradius & X(:,1) > (-ROIradius)),:);
-    X = X(find(X(:,2) < ROIradius & X(:,2) > (-ROIradius)),:);
+    X = X(X(:,1) < ROIradius & X(:,1) > (-ROIradius),:);
+    X = X(X(:,2) < ROIradius & X(:,2) > (-ROIradius),:);
 
     % define the grid
     xi = linspace(-ROIradius,ROIradius,n);
@@ -66,7 +66,8 @@ function [dip, Z] = visualizeCloud2D(X, n, diameter, angle, caption)
     
     % display the image with hot colormap
     dip = dipshow(Z','lin');
-    dipmapping(dip,[0 max(Z(:))],'COLORMAP',hot(256))
+    dipmapping(dip,[0 max(Z(:))],'COLORMAP',hot(256));
+    axis equal
     
     bar = 20*n/diameter/130; %20nm bar
 

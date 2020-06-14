@@ -28,7 +28,7 @@
 %
 % Hamidreza Heydarian, Oct 2017.
 
-function [Particles_step2, M_new] = outlier_removal(particles, all2all_dir, outdir)
+function [initAlignedParticles, M_new] = outlier_removal(particles, all2all_dir, outdir)
 
     disp('Lie-algebraic averaging started  !');
     path_matlab = genpath('Optimization');
@@ -114,24 +114,35 @@ function [Particles_step2, M_new] = outlier_removal(particles, all2all_dir, outd
     error_idx = find(abs(error) > 5);                   % rotation outliers, the
                                                         % threshold is set
                                                         % to 5 degree
-
+    
     RM_new = RM;
     I_new = I;
     RM_new(:,:,error_idx) = [];                         % exclude outliers                        
     I_new(:,error_idx) = [];                            % exclude outliers
 
+    if isConnected(I_new)==0    
+        
+        error_idx = connectGraph(I,error);
+        
+        RM_new = RM;
+        I_new = I;
+        RM_new(:,:,error_idx) = [];                         % exclude outliers                        
+        I_new(:,error_idx) = [];  
+        disp('Reconnected Graph')
+    end
+    
     % second round of Lie-averaging
     [M_new] = MeanSE3Graph(RM_new,I_new);
 
     % the superparticle from Lie-algebraic averaging after outlier removal (step 2)
-    Particles_step2 = applyRigidTransform(particles, M_new); 
+    initAlignedParticles = applyRigidTransform(particles, M_new); 
 
     % save lie-averaging and outlier removal output to file
     save([outdir '/motion_Lie_averaging'], 'M');
     save([outdir '/particle_Lie_averaging'], 'Particles_step1');
 
     save([outdir '/motion_outlier_removal_'], 'M_new');
-    save([outdir '/particle_outlier_removal_'], 'Particles_step2');
+    save([outdir '/particle_outlier_removal_'], 'initAlignedParticles');
     
     disp('Lie-algebraic averaging and outlier removal is done !');
     fprintf('\n\n');
