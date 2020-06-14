@@ -121,11 +121,11 @@ all2all(subParticles, 'output/all2all_matrix', scale);
 
 % bootstrapping (step 3)
 iter = 4;   % number of iterations
-[superParticle, M2] = one2all(initAlignedParticles, iter, M1, 'output/');  
+[superParticle, M2] = one2all(initAlignedParticles, iter, M1, 'output/',scale);  
 
 % for NPC data use the following function which takes into account the
 % prior knowledge about 8-fold symmetry. Look at Online Methods for details
-% [superParticle, M2] = one2all_symmetric(initAlignedParticles, iter, M1, 'output/');
+% [superParticle, M2] = one2all_symmetric(initAlignedParticles, iter, M1, 'output/',scale);
 
 %% VISUALIZE RRESULTS
 
