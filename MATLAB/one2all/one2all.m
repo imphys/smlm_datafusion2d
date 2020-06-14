@@ -30,7 +30,7 @@
 %
 % Hamidreza Heydarian, Oct 2017.
 
-function [ superParticle, MT] = one2all(Particles, iter, oldM, outdir)
+function [ superParticle, MT] = one2all(Particles, iter, oldM, outdir,scale)
 
     disp('Bootstapping is started  !');
     initParticle.points = [];
@@ -46,7 +46,6 @@ function [ superParticle, MT] = one2all(Particles, iter, oldM, outdir)
     end
     
     superParticle{1} = initParticle.points;
-
     % one-to-all registration, excludes each particle from the superparticle
     % and then register it to the rest
     for j=1:iter
@@ -62,10 +61,10 @@ function [ superParticle, MT] = one2all(Particles, iter, oldM, outdir)
             end
             M = Particles{1,i};
             S = delParticle(Particles, initParticle, i);
-            [parameter{j,i}, ~, ~, ~, ~] = pairFitting_parallel(M, S);
+            [parameter{j,i}, ~, ~, ~, ~] = pairFitting_parallel(M, S,scale);
             tmpParticle.points = [tmpParticle.points; transform_by_rigid2d(M.points, parameter{j,i})];
             tmpParticle.sigma = [tmpParticle.sigma; M.sigma];
-
+            Particles{1,i}.points = transform_by_rigid2d(M.points, parameter{j,i}); 
         end
 
         a = toc;
@@ -99,7 +98,8 @@ function [ superParticle, MT] = one2all(Particles, iter, oldM, outdir)
 
     % save to disk
     save([outdir '/superParticle'], 'superParticle');
-    
+    M2 = MT; 
+    save([outdir '/M2'], 'M2');
     disp('Bootstapping is done  !');
     
 end

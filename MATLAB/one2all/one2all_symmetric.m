@@ -33,15 +33,12 @@
 %
 % Hamidreza Heydarian, June 2018.
 
-function [ superParticle, MT] = one2all_symmetric(Particles, iter, oldM, outdir)
+function [ superParticle, MT] = one2all_symmetric(Particles, iter, oldM, outdir, scale)
 
     disp('Bootstapping is started  !');
     initParticle.points = [];
     initParticle.sigma = [];
     N = numel(Particles);
-
-    scale = [0.1 0.1 0.1 0.1 0.1];  % the set of scales in a multiscale 
-                                    % approach (to be determnined automatically.)
       
     for i=1:N
         
@@ -68,10 +65,10 @@ function [ superParticle, MT] = one2all_symmetric(Particles, iter, oldM, outdir)
             M = Particles{1,i};
             S = delParticle(Particles, initParticle, i);
             
-            [parameter{j,i}, ~, ~, ~, ~] = pairFitting_symmetric(M, S, scale(iter));
+            [parameter{j,i}, ~, ~, ~, ~] = pairFitting_symmetric(M, S, scale);
             tmpParticle.points = [tmpParticle.points; transform_by_rigid2d(M.points, parameter{j,i})];
             tmpParticle.sigma = [tmpParticle.sigma; M.sigma];
-
+            Particles{1,i}.points = transform_by_rigid2d(M.points, parameter{j,i}); 
         end
 
         a = toc;
